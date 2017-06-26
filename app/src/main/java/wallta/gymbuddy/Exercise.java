@@ -13,6 +13,17 @@ public class Exercise {
     private int mReps;
     private int mSeconds;
 
+    public Exercise() {
+        mId = UUID.randomUUID();
+    }
+
+    public Exercise(String name, int reps, int seconds) {
+        mId = UUID.randomUUID();
+        mName = name;
+        mReps = reps;
+        mSeconds = seconds;
+    }
+
     public UUID getId() {
         return mId;
     }

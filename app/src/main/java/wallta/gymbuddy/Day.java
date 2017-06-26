@@ -11,9 +11,19 @@ public class Day {
 
     private UUID mId;
     private String mDay;
-    private ArrayList<Exercise> mExercises = new ArrayList<>();
+    private ArrayList<Exercise> mExercises;
     //private String mMuscleGroup;
     //private String mExerciseType;
+
+    public Day() {
+        mId = UUID.randomUUID();
+    }
+
+    public Day(String day, ArrayList<Exercise> exercises) {
+        mId = UUID.randomUUID();
+        mDay = day;
+        mExercises = new ArrayList<>();
+    }
 
     public UUID getId() {
         return mId;

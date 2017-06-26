@@ -11,7 +11,17 @@ public class Routine {
 
     private UUID mId;
     private String mName;
-    private ArrayList<Day> mDays = new ArrayList<>();
+    private ArrayList<Day> mDays;
+
+    public Routine() {
+        mId = UUID.randomUUID();
+    }
+
+    public Routine(String name, ArrayList<Day> days) {
+        mId = UUID.randomUUID();
+        mName = name;
+        mDays = new ArrayList<>();
+    }
 
     public UUID getId() {
         return mId;
