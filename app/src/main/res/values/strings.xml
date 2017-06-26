@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">GymBuddy</string>
+    <string name="exercise_name_hint">Enter a name for the exercise.</string>
+    <string name="exercise_name_label_">Exercise</string>
+    <string name="exercise_details_label">Details</string>
+    <string name="exercise_completed_label">Completed</string>
+    <string name="add_exercise">Add Exercise</string>
+    <string name="reps_remaining">Reps Remaining</string>
+    <string name="start_rest_timer">Start Rest Timer</string>
+    <string name="stop_rest_timer">Stop Rest Timer</string>
+    <string name="countdown_timer">Countdown Timer</string>
+    <string name="day_spinner_label">Select Day</string>
+    <string-array name="day_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 </resources>
