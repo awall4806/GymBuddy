@@ -49,6 +49,6 @@ public class DayListFragment extends Fragment {
     }
 
     private void updateUI() {
-        // TODO:
+        // TODO: Implement updateUI() method
     }
 }

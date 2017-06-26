@@ -13,8 +13,10 @@ public class RoutineDbSchema {
 
         public static final class DayTable {
             public static final String DAY_OF_WEEK = "day";
-            public static final String MUSCLE_GROUP = "muscle group";
-            public static final String EXERCISE_TYPE = "exercise type";
+            public static final ArrayList<ExerciseTable> exercises =
+                    new ArrayList<>();
+            //public static final String MUSCLE_GROUP = "muscle group";
+            //public static final String EXERCISE_TYPE = "exercise type";
 
             public static final class ExerciseTable {
                 public static final String EXERCISE_NAME = "exercise";
