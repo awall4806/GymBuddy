@@ -19,6 +19,7 @@ import java.util.List;
 public class DayListFragment extends Fragment {
 
     private Day mDay;
+    private int clickedDayPosition;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +84,9 @@ public class DayListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-
+            clickedDayPosition = getAdapterPosition();
+            //Intent intent = GymActivity.newIntent(getActivity(), mDay.getId());
+            //startActivity(intent);
         }
     }
 

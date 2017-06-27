@@ -18,6 +18,7 @@ import java.util.List;
 public class ExerciseListFragment extends Fragment {
 
     private Exercise mExercise;
+    private int clickedExercisePosition;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +66,9 @@ public class ExerciseListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-
+            clickedExercisePosition = getAdapterPosition();
+            //Intent intent = GymActivity.newIntent(getActivity(), mExercise.getId());
+            //startActivity(intent);
         }
     }
 

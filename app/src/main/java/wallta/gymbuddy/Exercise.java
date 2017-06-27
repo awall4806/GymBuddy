@@ -12,6 +12,7 @@ public class Exercise {
     private String mName;
     private boolean mCompleted;
     private int mReps;
+    private int mRemainingReps;
     private int mSeconds;
 
     public Exercise() {
@@ -56,6 +57,14 @@ public class Exercise {
 
     public void setReps(int reps) {
         mReps = reps;
+    }
+
+    public int getRemainingReps() {
+        return mRemainingReps;
+    }
+
+    public void setRemainingReps(int remainingReps) {
+        this.mRemainingReps = remainingReps;
     }
 
     public int getSeconds() {
