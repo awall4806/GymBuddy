@@ -10,6 +10,7 @@ public class Exercise {
 
     private UUID mId;
     private String mName;
+    private boolean mCompleted;
     private int mReps;
     private int mSeconds;
 
@@ -17,9 +18,10 @@ public class Exercise {
         mId = UUID.randomUUID();
     }
 
-    public Exercise(String name, int reps, int seconds) {
+    public Exercise(String name, boolean completed, int reps, int seconds) {
         mId = UUID.randomUUID();
         mName = name;
+        mCompleted = completed;
         mReps = reps;
         mSeconds = seconds;
     }
@@ -38,6 +40,14 @@ public class Exercise {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public boolean isCompleted() {
+        return mCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        mCompleted = completed;
     }
 
     public int getReps() {
