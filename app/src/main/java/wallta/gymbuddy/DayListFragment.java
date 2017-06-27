@@ -15,9 +15,12 @@ import android.widget.Spinner;
 
 public class DayListFragment extends Fragment {
 
+    private Day mDay;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDay = new Day();
     }
 
     @Nullable
