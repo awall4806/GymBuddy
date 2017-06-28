@@ -9,8 +9,10 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -24,6 +26,10 @@ public class ExerciseFragment extends Fragment {
     private Button mTimerButton;
     private TextView mSetsTextView;
     private TextView mTimerTextView;
+
+    private static final String[] EXERCISES = new String[] {
+            "BB Bench Press", "DB Curls", "BB Rows", "Lat Pulldown"
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,10 +45,15 @@ public class ExerciseFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                int reps = mExercise.getReps();
-                if (reps > 0) {
-                    mExercise.setRemainingReps(mExercise.getRemainingReps() - 1);
+                int remainingReps = mExercise.getRemainingReps();
+                if (remainingReps > 1) {
+                    mExercise.setRemainingReps(remainingReps - 1);
                 }
+                else if(remainingReps == 1) {
+                    mExercise.setCompleted(true);
+                    // update Exercise List Item UI
+                }
+                // update UI
                 // TODO: Set Off Alarm Upon Timer Finish
                 mTimerTextView.setText(mExercise.getSeconds());
             }
@@ -55,7 +66,10 @@ public class ExerciseFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercise, container, false);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line, EXERCISES);
         mNameTextView = (AutoCompleteTextView) view.findViewById(R.id.exercise_name);
+        mNameTextView.setAdapter(adapter);
         mNameTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start,
