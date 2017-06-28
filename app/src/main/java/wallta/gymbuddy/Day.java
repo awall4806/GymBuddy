@@ -1,6 +1,5 @@
 package wallta.gymbuddy;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -8,29 +7,36 @@ import java.util.UUID;
  */
 
 public class Day {
-
-    private UUID mId;
+    private UUID mRoutineId;
+    private UUID mDayId;
     private String mDay;
-    private ArrayList<Exercise> mExercises;
     //private String mMuscleGroup;
     //private String mExerciseType;
 
     public Day() {
-        mId = UUID.randomUUID();
+        mDayId = UUID.randomUUID();
     }
 
-    public Day(String day, ArrayList<Exercise> exercises) {
-        mId = UUID.randomUUID();
+    public Day(UUID routine, String day) {
+        mDayId = UUID.randomUUID();
+        mRoutineId = routine;
         mDay = day;
-        mExercises = new ArrayList<>();
     }
 
-    public UUID getId() {
-        return mId;
+    public UUID getRoutineId() {
+        return mRoutineId;
     }
 
-    public void setId(UUID id) {
-        mId = id;
+    public void setRoutineId(UUID routineId) {
+        mRoutineId = routineId;
+    }
+
+    public UUID getDayId() {
+        return mDayId;
+    }
+
+    public void setDayId(UUID id) {
+        mDayId = id;
     }
 
     public String getDay() {
@@ -39,22 +45,5 @@ public class Day {
 
     public void setDay(String day) {
         mDay = day;
-    }
-
-    public ArrayList<Exercise> getExercises() {
-        return mExercises;
-    }
-
-    public void setExercises(ArrayList<Exercise> exercises) {
-        mExercises = exercises;
-    }
-
-    public Exercise getExercise(UUID id) {
-        for (Exercise exercise : mExercises) {
-            if (exercise.getId() == id) {
-                return exercise;
-            }
-        }
-        return null;
     }
 }

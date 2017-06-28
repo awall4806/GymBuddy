@@ -1,5 +1,6 @@
 package wallta.gymbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -57,8 +58,8 @@ public class RoutineListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             clickedRoutinePosition = getAdapterPosition();
-            //Intent intent = GymActivity.newIntent(getActivity(), mRoutine.getId());
-            //startActivity(intent);
+            Intent intent = RoutineListActivity.newIntent(getActivity(), mRoutine.getId());
+            startActivity(intent);
         }
     }
 

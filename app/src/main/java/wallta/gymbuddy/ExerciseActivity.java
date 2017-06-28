@@ -1,25 +1,29 @@
 package wallta.gymbuddy;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-public class GymActivity extends AppCompatActivity {
+/**
+ * Created by wallta on 6/28/2017.
+ */
+
+public class ExerciseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gym);
+        setContentView(R.layout.activity_exercise);
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        Fragment fragment = fm.findFragmentById(R.id.exercise_fragment_container);
 
         if (fragment == null) {
-            fragment = new RoutineListFragment();
+            fragment = new ExerciseListFragment();
 
             fm.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
+                    .add(R.id.exercise_fragment_container, fragment)
                     .commit();
         }
     }

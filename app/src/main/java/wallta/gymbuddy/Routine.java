@@ -1,6 +1,5 @@
 package wallta.gymbuddy;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -9,26 +8,24 @@ import java.util.UUID;
 
 public class Routine {
 
-    private UUID mId;
+    private UUID mRoutineId;
     private String mName;
-    private ArrayList<Day> mDays;
 
     public Routine() {
-        mId = UUID.randomUUID();
+        mRoutineId = UUID.randomUUID();
     }
 
-    public Routine(String name, ArrayList<Day> days) {
-        mId = UUID.randomUUID();
+    public Routine(String name) {
+        mRoutineId = UUID.randomUUID();
         mName = name;
-        mDays = new ArrayList<>();
     }
 
     public UUID getId() {
-        return mId;
+        return mRoutineId;
     }
 
     public void setId(UUID id) {
-        mId = id;
+        mRoutineId = id;
     }
 
     public String getName() {
@@ -37,22 +34,5 @@ public class Routine {
 
     public void setName(String name) {
         mName = name;
-    }
-
-    public ArrayList<Day> getDays() {
-        return mDays;
-    }
-
-    public void setDays(ArrayList<Day> days) {
-        mDays = days;
-    }
-
-    public Day getDay(UUID id) {
-        for (Day day : mDays) {
-            if (day.getId() == id) {
-                return day;
-            }
-        }
-        return null;
     }
 }

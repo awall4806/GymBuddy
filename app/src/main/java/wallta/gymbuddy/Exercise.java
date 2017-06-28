@@ -8,7 +8,8 @@ import java.util.UUID;
 
 public class Exercise {
 
-    private UUID mId;
+    private UUID mDayId;
+    private UUID mExerciseId;
     private String mName;
     private boolean mCompleted;
     private int mReps;
@@ -16,23 +17,32 @@ public class Exercise {
     private int mSeconds;
 
     public Exercise() {
-        mId = UUID.randomUUID();
+        mExerciseId = UUID.randomUUID();
     }
 
-    public Exercise(String name, boolean completed, int reps, int seconds) {
-        mId = UUID.randomUUID();
+    public Exercise(UUID dayId, String name, boolean completed, int reps, int seconds) {
+        mExerciseId = UUID.randomUUID();
+        mDayId = dayId;
         mName = name;
         mCompleted = completed;
         mReps = reps;
         mSeconds = seconds;
     }
 
-    public UUID getId() {
-        return mId;
+    public UUID getDayId() {
+        return mDayId;
     }
 
-    public void setId(UUID id) {
-        mId = id;
+    public void setmDayId(UUID dayId) {
+        mDayId = dayId;
+    }
+
+    public UUID getExerciseId() {
+        return mExerciseId;
+    }
+
+    public void setExerciseId(UUID id) {
+        mExerciseId = id;
     }
 
     public String getName() {

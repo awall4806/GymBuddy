@@ -1,5 +1,6 @@
 package wallta.gymbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -85,8 +86,8 @@ public class DayListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             clickedDayPosition = getAdapterPosition();
-            //Intent intent = GymActivity.newIntent(getActivity(), mDay.getId());
-            //startActivity(intent);
+            Intent intent = RoutineListActivity.newIntent(getActivity(), mDay.getRoutineId());
+            startActivity(intent);
         }
     }
 
