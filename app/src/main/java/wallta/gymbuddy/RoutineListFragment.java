@@ -58,7 +58,7 @@ public class RoutineListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             clickedRoutinePosition = getAdapterPosition();
-            Intent intent = RoutineListActivity.newIntent(getActivity(), mRoutine.getId());
+            Intent intent = RoutineListActivity.newIntent(getActivity(), mRoutine.getRoutineId());
             startActivity(intent);
         }
     }

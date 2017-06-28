@@ -20,11 +20,11 @@ public class Routine {
         mName = name;
     }
 
-    public UUID getId() {
+    public UUID getRoutineId() {
         return mRoutineId;
     }
 
-    public void setId(UUID id) {
+    public void setRoutineId(UUID id) {
         mRoutineId = id;
     }
 
