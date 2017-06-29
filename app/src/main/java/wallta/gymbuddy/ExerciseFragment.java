@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.UUID;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by awall4806 on 6/26/2017.
@@ -30,6 +27,7 @@ public class ExerciseFragment extends Fragment {
     private Exercise mExercise;
     private AutoCompleteTextView mNameTextView;
     private Button mTimerButton;
+    private TextView mRepsTextView;
     private TextView mSetsTextView;
     private TextView mTimerTextView;
     private CountDownTimer mRestTimer;
@@ -121,6 +119,9 @@ public class ExerciseFragment extends Fragment {
             }
         });
         mTimerButton.setEnabled(true);
+
+        mRepsTextView = (TextView) view.findViewById(R.id.reps);
+        mRepsTextView.setText(mExercise.getReps() + " " + getString(R.string.reps_per_set));
 
         mSetsTextView = (TextView) view.findViewById(R.id.sets_remaining);
         mSetsTextView.setText(mExercise.getSets() + " " + getString(R.string.sets_remaining));

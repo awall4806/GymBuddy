@@ -5,6 +5,7 @@
     <string name="exercise_details_label">Details</string>
     <string name="exercise_completed_label">Completed</string>
     <string name="add_exercise">Add Exercise</string>
+    <string name="reps_per_set">Reps/Set</string>
     <string name="sets_remaining">Sets Remaining</string>
     <string name="start_rest_timer">Start Timer</string>
     <string name="stop_rest_timer">Stop Timer</string>
