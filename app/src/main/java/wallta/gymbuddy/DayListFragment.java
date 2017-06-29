@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.UUID;
  * Created by wallta on 6/26/2017.
  */
 
-public class DayListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class DayListFragment extends Fragment {
 
     private static final String ARG_DAY_ID = "day_id";
     private static final String CLICKED_DAY_POSITION = "clicked_day_position";
@@ -31,7 +30,6 @@ public class DayListFragment extends Fragment implements AdapterView.OnItemSelec
     private UUID mRoutineId;
     private RecyclerView mDayRecyclerView;
     private DayAdapter mDayAdapter;
-    private EditText mDayTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,36 +47,11 @@ public class DayListFragment extends Fragment implements AdapterView.OnItemSelec
         mDayRecyclerView = (RecyclerView) view.findViewById(R.id.day_recycler_view);
         mDayRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mDayTextView = (EditText) view.findViewById(R.id.day_text);
-//        mDayTextView.setText(mDay.getDay());
-
-//        Spinner spinner = (Spinner) view.findViewById(R.id.day_spinner);
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-//                android.R.layout.simple_spinner_item,
-//                getResources().getStringArray(R.array.day_array));
-////        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-////                R.array.day_array, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(this);
-
         if (savedInstanceState != null) {
             clickedDayPosition = savedInstanceState.getInt(CLICKED_DAY_POSITION);
         }
 
         return view;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        parent.getItemAtPosition(pos);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
     @Override
@@ -112,23 +85,30 @@ public class DayListFragment extends Fragment implements AdapterView.OnItemSelec
      * --------------------------------------------------------------------------------------------
      */
 
-    private class DayHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class DayHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            AdapterView.OnItemSelectedListener {
 
         private Day mDay;
-        private EditText mDayTextView;
         private Spinner mDaySpinner;
 
         public DayHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_day, parent, false));
             itemView.setOnClickListener(this);
-            mDayTextView = (EditText) itemView.findViewById(R.id.day_text);
 
-            //mDaySpinner = (Spinner) itemView.findViewById(R.id.day_spinner);
+            mDaySpinner = (Spinner) itemView.findViewById(R.id.day_spinner);
+            // Create an ArrayAdapter using the string array and a default spinner layout
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.day_array));
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+            mDaySpinner.setAdapter(adapter);
+            mDaySpinner.setOnItemSelectedListener(this);
         }
 
         public void bind(Day day) {
             mDay = day;
-            mDayTextView.setText(mDay.getDay());
         }
 
         @Override
@@ -136,6 +116,15 @@ public class DayListFragment extends Fragment implements AdapterView.OnItemSelec
             clickedDayPosition = getAdapterPosition();
             Intent intent = ExerciseListActivity.newIntent(getActivity(), mDay.getDayId());
             startActivity(intent);
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            mDay.setDay(parent.getItemAtPosition(pos).toString());
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
         }
     }
 
