@@ -20,6 +20,7 @@ public class RoutineDbSchema {
                 public static final String DAY_ID = "1111";
                 public static final String EXERCISE_ID = "2222";
                 public static final String EXERCISE_NAME = "exercise";
+                public static final String REPS = "reps";
                 public static final String SETS = "sets";
                 public static final String REST_TIMER_SECONDS = "seconds";
             }

@@ -16,6 +16,12 @@
         android:textSize="20dp"/>
 
     <TextView
+        android:id="@+id/reps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"/>
+
+    <TextView
         android:id="@+id/sets_remaining"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

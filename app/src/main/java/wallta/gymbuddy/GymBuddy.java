@@ -42,7 +42,8 @@ public class GymBuddy {
                 mDays.add(day);
 
                 for (int k = 1; k < 6; k++) {
-                    Exercise exercise = new Exercise(day.getDayId(), "Exercise #" + i + j + k, 5, 45);
+                    Exercise exercise = new Exercise(day.getDayId(), "Exercise #" + i + j + k,
+                            5, 5, 45);
                     mExercises.add(exercise);
                 }
             }
