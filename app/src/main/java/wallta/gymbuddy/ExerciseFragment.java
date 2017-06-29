@@ -32,6 +32,7 @@ public class ExerciseFragment extends Fragment {
     private Button mTimerButton;
     private TextView mSetsTextView;
     private TextView mTimerTextView;
+    private CountDownTimer mRestTimer;
 
     private static final String[] EXERCISES = new String[] {
             "BB Bench Press", "DB Curls", "BB Rows", "Lat Pulldown"
@@ -52,7 +53,7 @@ public class ExerciseFragment extends Fragment {
         UUID exerciseId = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID);
         mExercise = GymBuddy.get(getActivity()).getExercise(exerciseId);
 
-        new CountDownTimer((long)mExercise.getSeconds()*1000, 1000) {
+        mRestTimer = new CountDownTimer((long)mExercise.getSeconds()*1000, 1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -107,13 +108,25 @@ public class ExerciseFragment extends Fragment {
 
         mTimerButton = (Button) view.findViewById(R.id.timer_button);
         mTimerButton.setText(R.string.start_rest_timer);
+        mTimerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTimerButton.getText().equals(R.string.start_rest_timer)) {
+                    mRestTimer.start();
+                    mTimerButton.setText(getString(R.string.stop_rest_timer));
+
+                } else {
+                    // TODO: Handle Stopping of Rest Timer
+                }
+            }
+        });
         mTimerButton.setEnabled(true);
 
         mSetsTextView = (TextView) view.findViewById(R.id.sets_remaining);
-        mSetsTextView.setText(mExercise.getSets() + "@string/sets_remaining");
+        mSetsTextView.setText(mExercise.getSets() + " " + getString(R.string.sets_remaining));
 
         mTimerTextView = (TextView) view.findViewById(R.id.timer);
-        mTimerTextView.setText(mExercise.getSeconds());
+        mTimerTextView.setText("" + mExercise.getSeconds());
 
         return view;
     }

@@ -84,12 +84,14 @@ public class GymBuddy {
     }
 
     public Exercise getExercise(UUID exerciseId) {
+        Exercise returnedExercise = null;
         for (Exercise exercise : mExercises) {
             if (exercise.getExerciseId().equals(exerciseId)) {
-                return exercise;
+                returnedExercise = exercise;
+                break;
             }
         }
-        return null;
+        return returnedExercise;
     }
 
     public List<Day> getDaysByRoutine(UUID routineId) {
