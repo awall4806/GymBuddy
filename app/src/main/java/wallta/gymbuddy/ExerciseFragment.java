@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.UUID;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by awall4806 on 6/26/2017.
@@ -49,28 +52,28 @@ public class ExerciseFragment extends Fragment {
         UUID exerciseId = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID);
         mExercise = GymBuddy.get(getActivity()).getExercise(exerciseId);
 
-//        new CountDownTimer((long)mExercise.getSeconds()*1000, 1000) {
-//
-//            @Override
-//            public void onTick(long millisUntilFinished) {
-//                mTimerTextView.setText((int)millisUntilFinished/1000);
-//            }
-//
-//            @Override
-//            public void onFinish() {
-//                int remainingSets = mExercise.getRemainingSets();
-//                if (remainingSets > 1) {
-//                    mExercise.setRemainingSets(remainingSets - 1);
-//                }
-//                else if(remainingSets == 1) {
-//                    mExercise.setCompleted(true);
-//                    // update Exercise List Item UI
-//                }
-//                // update UI
-//                // TODO: Set Off Alarm Upon Timer Finish
-//                mTimerTextView.setText(mExercise.getSeconds());
-//            }
-//        };
+        new CountDownTimer((long)mExercise.getSeconds()*1000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimerTextView.setText((int)millisUntilFinished/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                int remainingSets = mExercise.getRemainingSets();
+                if (remainingSets > 1) {
+                    mExercise.setRemainingSets(remainingSets - 1);
+                }
+                else if(remainingSets == 1) {
+                    mExercise.setCompleted(true);
+                    // update Exercise List Item UI
+                }
+                // update UI
+                // TODO: Set Off Alarm Upon Timer Finish
+                mTimerTextView.setText(mExercise.getSeconds());
+            }
+        };
     }
 
     @Nullable

@@ -108,7 +108,7 @@ public class ExerciseListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             clickedExercisePosition = getAdapterPosition();
-            Intent intent = ExerciseActivity.newIntent(getActivity(), mExercise.getDayId());
+            Intent intent = ExerciseActivity.newIntent(getActivity(), mExercise.getExerciseId());
             startActivity(intent);
         }
     }
