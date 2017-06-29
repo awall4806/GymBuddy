@@ -8,11 +8,11 @@ import java.util.UUID;
 
 public class DayListActivity extends SingleFragmentActivity {
 
-    private static final String EXTRA_DAY_ID = "wallta.gymbuddy.day_id";
+    public static final String EXTRA_ROUTINE_ID = "wallta.gymbuddy.routine_id";
 
-    public static Intent newIntent(Context packageContext, UUID dayId) {
+    public static Intent newIntent(Context packageContext, UUID routineId) {
         Intent intent = new Intent(packageContext, DayListActivity.class);
-        intent.putExtra(EXTRA_DAY_ID, dayId);
+        intent.putExtra(EXTRA_ROUTINE_ID, routineId);
         return intent;
     }
 

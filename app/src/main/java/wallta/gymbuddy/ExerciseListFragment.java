@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by wallta on 6/26/2017.
@@ -18,13 +20,19 @@ import java.util.List;
 
 public class ExerciseListFragment extends Fragment {
 
-    private Exercise mExercise;
+    private static final String CLICKED_EXERCISE_POSITION = "clicked_exercise_position";
+
     private int clickedExercisePosition;
+
+    private UUID mDayId;
+    private RecyclerView mExerciseRecyclerView;
+    private ExerciseAdapter mExerciseAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mExercise = new Exercise();
+        mDayId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(ExerciseListActivity.EXTRA_DAY_ID);
     }
 
     @Nullable
@@ -33,7 +41,39 @@ public class ExerciseListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercise_list, container, false);
 
+        mExerciseRecyclerView = (RecyclerView) view.findViewById(R.id.exercise_recycler_view);
+        mExerciseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        if (savedInstanceState != null) {
+            clickedExercisePosition = savedInstanceState.getInt(CLICKED_EXERCISE_POSITION);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(CLICKED_EXERCISE_POSITION, clickedExercisePosition);
+    }
+
+    private void updateUI() {
+        GymBuddy gymBuddy = GymBuddy.get(getActivity());
+        List<Exercise> exercises = gymBuddy.getExercisesByDay(mDayId);
+
+        if (mExerciseAdapter == null) {
+            mExerciseAdapter = new ExerciseAdapter(exercises);
+            mExerciseRecyclerView.setAdapter(mExerciseAdapter);
+        } else {
+            mExerciseAdapter.setExercises(exercises);
+            mExerciseAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -68,7 +108,7 @@ public class ExerciseListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             clickedExercisePosition = getAdapterPosition();
-            Intent intent = RoutineListActivity.newIntent(getActivity(), mExercise.getExerciseId());
+            Intent intent = ExerciseActivity.newIntent(getActivity(), mExercise.getDayId());
             startActivity(intent);
         }
     }

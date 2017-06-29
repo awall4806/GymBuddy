@@ -38,18 +38,15 @@ public class GymBuddy {
             mRoutines.add(routine);
 
             for (int j = 1; j < 5; j++) {
-                Day day = new Day(routine.getRoutineId(), "Day #" + j);
+                Day day = new Day(routine.getRoutineId(), "Day #" + i + j);
                 mDays.add(day);
 
                 for (int k = 1; k < 6; k++) {
-                    Exercise exercise = new Exercise(day.getDayId(),
-                            "Exercise #" + k, 5, 45);
+                    Exercise exercise = new Exercise(day.getDayId(), "Exercise #" + i + j + k, 5, 45);
                     mExercises.add(exercise);
                 }
             }
         }
-
-
 
         //mContext = context.getApplicationContext();
         // TODO: initialize new SQLiteOpenHelper in GymBuddy constructor.
@@ -92,5 +89,25 @@ public class GymBuddy {
             }
         }
         return null;
+    }
+
+    public List<Day> getDaysByRoutine(UUID routineId) {
+        List<Day> days = new ArrayList<>();
+        for (Day day : mDays) {
+            if (day.getRoutineId().equals(routineId)) {
+                days.add(day);
+            }
+        }
+        return days;
+    }
+
+    public List<Exercise> getExercisesByDay(UUID dayId) {
+        List<Exercise> exercises = new ArrayList<>();
+        for (Exercise exercise : mExercises) {
+            if (exercise.getDayId().equals(dayId)) {
+                exercises.add(exercise);
+            }
+        }
+        return exercises;
     }
 }

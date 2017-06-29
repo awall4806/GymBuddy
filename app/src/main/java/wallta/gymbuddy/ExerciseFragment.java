@@ -14,11 +14,15 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.UUID;
+
 /**
  * Created by awall4806 on 6/26/2017.
  */
 
 public class ExerciseFragment extends Fragment {
+
+    private static final String ARG_EXERCISE_ID = "exercise_id";
 
     private Exercise mExercise;
     private AutoCompleteTextView mNameTextView;
@@ -30,33 +34,43 @@ public class ExerciseFragment extends Fragment {
             "BB Bench Press", "DB Curls", "BB Rows", "Lat Pulldown"
     };
 
+    public static ExerciseFragment newInstance(UUID exerciseId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_EXERCISE_ID, exerciseId);
+
+        ExerciseFragment fragment = new ExerciseFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mExercise = new Exercise();
+        UUID exerciseId = (UUID) getArguments().getSerializable(ARG_EXERCISE_ID);
+        mExercise = GymBuddy.get(getActivity()).getExercise(exerciseId);
 
-        new CountDownTimer((long)mExercise.getSeconds()*1000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                mTimerTextView.setText((int)millisUntilFinished/1000);
-            }
-
-            @Override
-            public void onFinish() {
-                int remainingSets = mExercise.getRemainingSets();
-                if (remainingSets > 1) {
-                    mExercise.setRemainingSets(remainingSets - 1);
-                }
-                else if(remainingSets == 1) {
-                    mExercise.setCompleted(true);
-                    // update Exercise List Item UI
-                }
-                // update UI
-                // TODO: Set Off Alarm Upon Timer Finish
-                mTimerTextView.setText(mExercise.getSeconds());
-            }
-        };
+//        new CountDownTimer((long)mExercise.getSeconds()*1000, 1000) {
+//
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                mTimerTextView.setText((int)millisUntilFinished/1000);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                int remainingSets = mExercise.getRemainingSets();
+//                if (remainingSets > 1) {
+//                    mExercise.setRemainingSets(remainingSets - 1);
+//                }
+//                else if(remainingSets == 1) {
+//                    mExercise.setCompleted(true);
+//                    // update Exercise List Item UI
+//                }
+//                // update UI
+//                // TODO: Set Off Alarm Upon Timer Finish
+//                mTimerTextView.setText(mExercise.getSeconds());
+//            }
+//        };
     }
 
     @Nullable
