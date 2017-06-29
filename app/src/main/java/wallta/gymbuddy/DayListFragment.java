@@ -1,13 +1,17 @@
 package wallta.gymbuddy;
 
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -17,15 +21,18 @@ import java.util.List;
  * Created by wallta on 6/26/2017.
  */
 
-public class DayListFragment extends Fragment {
+public class DayListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private Day mDay;
+    private static final String CLICKED_DAY_POSITION = "clicked_day_position";
+
     private int clickedDayPosition;
+
+    private RecyclerView mDayRecyclerView;
+    private DayAdapter mDayAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDay = new Day();
     }
 
     @Nullable
@@ -34,30 +41,61 @@ public class DayListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_day_list, container, false);
 
+        mDayRecyclerView = (RecyclerView) view.findViewById(R.id.day_recycler_view);
+        mDayRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         Spinner spinner = (Spinner) view.findViewById(R.id.day_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.day_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.day_array));
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+//                R.array.day_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        if (savedInstanceState != null) {
+            clickedDayPosition = savedInstanceState.getInt(CLICKED_DAY_POSITION);
+        }
 
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        parent.getItemAtPosition(pos);
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(CLICKED_DAY_POSITION, clickedDayPosition);
     }
 
     private void updateUI() {
-        // TODO: Implement updateUI() method
+        GymBuddy gymBuddy = GymBuddy.get(getActivity());
+        List<Day> days = gymBuddy.getDays();
+
+        if (mDayAdapter == null) {
+            mDayAdapter = new DayAdapter(days);
+            mDayRecyclerView.setAdapter(mDayAdapter);
+        } else {
+            mDayAdapter.setDays(days);
+            mDayAdapter.notifyDataSetChanged();
+        }
     }
 
     /**

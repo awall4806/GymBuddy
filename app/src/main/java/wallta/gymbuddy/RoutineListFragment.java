@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +15,16 @@ import java.util.List;
 
 public class RoutineListFragment extends Fragment {
 
-    private Routine mRoutine;
+    private static final String CLICKED_ROUTINE_POSITION = "clicked_routine_position";
+
     private int clickedRoutinePosition;
+
+    private RecyclerView mRoutineRecyclerView;
+    private RoutineAdapter mRoutineAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRoutine = new Routine();
     }
 
     @Nullable
@@ -29,7 +33,39 @@ public class RoutineListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_routine_list, container, false);
 
+        mRoutineRecyclerView = (RecyclerView) view.findViewById(R.id.routine_recycler_view);
+        mRoutineRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        if (savedInstanceState != null) {
+            clickedRoutinePosition = savedInstanceState.getInt(CLICKED_ROUTINE_POSITION);
+        }
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putSerializable(CLICKED_ROUTINE_POSITION, clickedRoutinePosition);
+    }
+
+    private void updateUI() {
+        GymBuddy gymBuddy = GymBuddy.get(getActivity());
+        List<Routine> routines = gymBuddy.getRoutines();
+
+        if (mRoutineAdapter == null) {
+            mRoutineAdapter = new RoutineAdapter(routines);
+            mRoutineRecyclerView.setAdapter(mRoutineAdapter);
+        } else {
+            mRoutineAdapter.setRoutines(routines);
+            mRoutineAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -95,7 +131,7 @@ public class RoutineListFragment extends Fragment {
             return mRoutines.size();
         }
 
-        public void setExercises(List<Routine> routines) {
+        public void setRoutines(List<Routine> routines) {
             mRoutines = routines;
         }
     }

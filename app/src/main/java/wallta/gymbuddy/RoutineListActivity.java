@@ -3,13 +3,10 @@ package wallta.gymbuddy;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import java.util.UUID;
 
-public class RoutineListActivity extends AppCompatActivity {
+public class RoutineListActivity extends SingleFragmentActivity {
 
     private static final String EXTRA_ROUTINE_ID = "wallta.gymbuddy.routine_id";
 
@@ -20,19 +17,7 @@ public class RoutineListActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_routine_list);
-
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.routine_list_fragment_container);
-
-        if (fragment == null) {
-            fragment = new RoutineListFragment();
-
-            fm.beginTransaction()
-                    .add(R.id.routine_list_fragment_container, fragment)
-                    .commit();
-        }
+    protected Fragment createFragment() {
+        return new RoutineListFragment();
     }
 }

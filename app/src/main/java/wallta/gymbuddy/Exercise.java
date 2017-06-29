@@ -12,20 +12,21 @@ public class Exercise {
     private UUID mExerciseId;
     private String mName;
     private boolean mCompleted;
-    private int mReps;
-    private int mRemainingReps;
+    private int mSets;
+    private int mRemainingSets;
     private int mSeconds;
 
     public Exercise() {
         mExerciseId = UUID.randomUUID();
     }
 
-    public Exercise(UUID dayId, String name, boolean completed, int reps, int seconds) {
+    public Exercise(UUID dayId, String name, int sets, int seconds) {
         mExerciseId = UUID.randomUUID();
         mDayId = dayId;
         mName = name;
-        mCompleted = completed;
-        mReps = reps;
+        mCompleted = false;
+        mSets = sets;
+        mRemainingSets = sets;
         mSeconds = seconds;
     }
 
@@ -33,7 +34,7 @@ public class Exercise {
         return mDayId;
     }
 
-    public void setmDayId(UUID dayId) {
+    public void setDayId(UUID dayId) {
         mDayId = dayId;
     }
 
@@ -61,20 +62,20 @@ public class Exercise {
         mCompleted = completed;
     }
 
-    public int getReps() {
-        return mReps;
+    public int getSets() {
+        return mSets;
     }
 
-    public void setReps(int reps) {
-        mReps = reps;
+    public void setSets(int sets) {
+        mSets = sets;
     }
 
-    public int getRemainingReps() {
-        return mRemainingReps;
+    public int getRemainingSets() {
+        return mRemainingSets;
     }
 
-    public void setRemainingReps(int remainingReps) {
-        this.mRemainingReps = remainingReps;
+    public void setRemainingSets(int remainingSets) {
+        this.mRemainingSets = remainingSets;
     }
 
     public int getSeconds() {

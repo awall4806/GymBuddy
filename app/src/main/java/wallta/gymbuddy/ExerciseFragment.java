@@ -44,11 +44,11 @@ public class ExerciseFragment extends Fragment {
 
             @Override
             public void onFinish() {
-                int remainingReps = mExercise.getRemainingReps();
-                if (remainingReps > 1) {
-                    mExercise.setRemainingReps(remainingReps - 1);
+                int remainingSets = mExercise.getRemainingSets();
+                if (remainingSets > 1) {
+                    mExercise.setRemainingSets(remainingSets - 1);
                 }
-                else if(remainingReps == 1) {
+                else if(remainingSets == 1) {
                     mExercise.setCompleted(true);
                     // update Exercise List Item UI
                 }
@@ -93,7 +93,7 @@ public class ExerciseFragment extends Fragment {
         mTimerButton.setEnabled(true);
 
         mSetsTextView = (TextView) view.findViewById(R.id.sets_remaining);
-        mSetsTextView.setText(mExercise.getReps() + "@string/sets_remaining");
+        mSetsTextView.setText(mExercise.getSets() + "@string/sets_remaining");
 
         mTimerTextView = (TextView) view.findViewById(R.id.timer);
         mTimerTextView.setText(mExercise.getSeconds());
